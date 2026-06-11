@@ -20,7 +20,6 @@ app.get('/health', (req: Request, res: Response) => {
         ts: new Date().toISOString()
     }
 );
-    res.send('Hello World.');
 });
 app.use((_err: Error, _req: Request, res: Response, _next: NextFunction) => {
   res.status(500).json({ error: 'Error interno del servidor' });
