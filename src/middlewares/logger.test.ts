@@ -1,6 +1,6 @@
 import { jest } from '@jest/globals';
 import { type Request, type Response, type NextFunction } from 'express';
-import { requestLogger } from './logger.ts';
+import { requestLogger } from './logger.js';
 
 describe('Pruebas para el Logger Middleware', () => {
   

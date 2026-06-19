@@ -1,6 +1,6 @@
 import { jest } from '@jest/globals';
 import { type Request, type Response, type NextFunction } from 'express';
-import { requireApiKey } from './auth.ts';
+import { requireApiKey } from './auth.js';
 
 describe('Pruebas para el Verificador de API Key', () => {
 

@@ -16,6 +16,9 @@ const config: Config = {
     ],
   },
   modulePaths: ['<rootDir>/src'],
+  moduleNameMapper: {
+    '^(\\.\\.?/.*)\\.js$': '$1',
+  },
 };
 
 export default config;
