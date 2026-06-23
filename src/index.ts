@@ -37,4 +37,3 @@ app.use((_err: Error, _req: Request, res: Response, _next: NextFunction) => {
 app.listen(port, () => {
     console.log("Servidor iniciado en el puerto 3000");
 });
-

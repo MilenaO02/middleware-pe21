@@ -74,3 +74,9 @@ Servidor corriendo en `http://localhost:3000`. Autenticacion: header `x-api-key:
 ### Escenario 4 — POST /v2/inscripciones con payment_method inválido (esperado: 400)
 
 ![v2 400 valor inválido](docs/screenshots/04-v2-400-inválido.png)
+
+### Validación del Contrato OpenAPI
+![Validación de OpenAPI sin errores](docs/screenshots/lint-exitoso.png)
+
+## Consumo de la API por otro grupo
+Si un  grupo de desarrollo alternativo empezase a usar esta API de aquí mañana, habría ajustes singulares en el contrato OpenAPI para asegurar una integración autónoma y sencilla. Primero, enriquecería las descripciones de los `schemas` agregando ` ejemplos ` y mensajes de error detallados para cada código de estado (en caso `400`, `401`), para que el grupo externo no tenga que adivinar la forma como son devueltas las respuestas defectuosas. En segundo lugar, formalizaría la forma y el límite de los datos (por ejemplo, validaciones de expresiones regulares para patrones UUID exactos). Y por último, añádiría una sección global de `servers` con las URL correspondientes para Staging y Producción, e incluiría una documentación muy detallada sobre el ciclo de vida y la expiración de la credencial de autenticación o ` x- api -key`.

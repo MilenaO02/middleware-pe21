@@ -33,14 +33,14 @@ paths:
             schema:
               $ref: '#/components/schemas/InscripcionV1'
             example:
-              estudianteId: "123e4567-e89b-12d3-a456-426614174000"
+              estudianteId: "uuid-123"
               materias: ["LTI_05A_458"]
               periodoId: "2026-1"
       responses:
         '201':
           description: Inscripción creada.
         '400':
-          description: Payload inválido.
+          description: Payload inválido o campos faltantes.
         '401':
           description: API key ausente o invalida.
   /v2/inscripciones:
@@ -56,7 +56,7 @@ paths:
             schema:
               $ref: '#/components/schemas/InscripcionV2'
             example:
-              estudianteId: "123e4567-e89b-12d3-a456-426614174000"
+              estudianteId: "uuid-123"
               materias: ["LTI_05A_458"]
               periodoId: "2026-1"
               metodo_pago: "scholarship"
@@ -80,7 +80,6 @@ components:
       properties:
         estudianteId:
           type: string
-          format: uuid
         materias:
           type: array
           items:
@@ -94,9 +93,9 @@ components:
         - type: object
           required: [metodo_pago]
           properties:
-            payment_method:
+            metodo_pago:
               type: string
-              enum: [debit, credit, scholarship]
+              enum: [Efectivo, Transferencia, Debito, Credito, scholarship]
       unevaluatedProperties: false
-
+      
 
