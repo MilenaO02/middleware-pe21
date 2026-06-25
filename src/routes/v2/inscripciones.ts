@@ -22,7 +22,10 @@ router.post('/', (req: Request, res: Response, next)  => {
     res.status(201).json({
         version: 'v2',
         message: {
-            estudianteId, materias, periodoId, metodo_pago
+            estudianteId, 
+            materias,
+            periodoId,
+            metodo_pago
         },
     });
 });
