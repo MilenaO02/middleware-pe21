@@ -1,6 +1,6 @@
 import { jest } from '@jest/globals';
 import { type Request, type Response, type NextFunction } from 'express';
-import { requireApiKey } from './auth.js';
+import { requireJwt } from './auth.js';
 
 describe('Pruebas para el Verificador de API Key', () => {
 
@@ -23,7 +23,7 @@ describe('Pruebas para el Verificador de API Key', () => {
     
     const next = jest.fn() as NextFunction;
 
-    requireApiKey(req, res, next);
+    requireJwt(req, res, next);
 
     // Comprobamos los resultados guardados en nuestro objeto basico
     expect(res.statusCode).toBe(401);
@@ -48,7 +48,7 @@ describe('Pruebas para el Verificador de API Key', () => {
     
     const next = jest.fn() as any;
 
-    requireApiKey(req, res, next);
+    requireJwt(req, res, next);
 
     expect((res as any).statusCode).toBe(401);
     expect(next).not.toHaveBeenCalled();
@@ -65,9 +65,7 @@ describe('Pruebas para el Verificador de API Key', () => {
     } as any;
     
     const next = jest.fn() as any;
-
-    requireApiKey(req, res, next);
-
-    expect(next).toHaveBeenCalled();
+    requireJwt(req, res, next);
+   expect(next).toHaveBeenCalled();
   });
 });
