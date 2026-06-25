@@ -80,3 +80,39 @@ Servidor corriendo en `http://localhost:3000`. Autenticacion: header `x-api-key:
 
 ## Consumo de la API por otro grupo
 Si un  grupo de desarrollo alternativo empezase a usar esta API de aquí mañana, habría ajustes singulares en el contrato OpenAPI para asegurar una integración autónoma y sencilla. Primero, enriquecería las descripciones de los `schemas` agregando ` ejemplos ` y mensajes de error detallados para cada código de estado (en caso `400`, `401`), para que el grupo externo no tenga que adivinar la forma como son devueltas las respuestas defectuosas. En segundo lugar, formalizaría la forma y el límite de los datos (por ejemplo, validaciones de expresiones regulares para patrones UUID exactos). Y por último, añádiría una sección global de `servers` con las URL correspondientes para Staging y Producción, e incluiría una documentación muy detallada sobre el ciclo de vida y la expiración de la credencial de autenticación o ` x- api -key`.
+
+## Seguridad JWT (PE-2.3)
+
+### Generar un token de prueba
+
+```bash
+# Con el secreto por defecto del laboratorio:
+TOKEN=$(node generate-token.mjs)
+
+# Con secreto personalizado:
+JWT_SECRET=mi-secreto-largo TOKEN=$(node generate-token.mjs)
+```
+
+### Probar el servicio
+
+```bash
+# Peticion valida (esperado: 201)
+curl -X POST http://localhost:3000/v2/inscripciones \
+  -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"estudianteId":"uuid-123","materias":["LTI_05A_458"],"periodoId":"2026-1","metodo_pago":"Efectivo"}'
+ ``` 
+#### Evidencia: PE23_prueba1_201.png
+![Prueba 1](./docs/screenshots/PE23_prueba1_201.png)
+
+# Token invalido (esperado: 401)
+curl -X POST http://localhost:3000/v2/inscripciones \
+  -H "Authorization: Bearer token.invalido.xxx"
+#### Evidencia: PE23_prueba2_401.png
+![Prueba 2](./docs/screenshots/PE23_prueba2_401.png)
+
+#### Evidencia: PE23_prueba3_401.png
+![Prueba 3](./docs/screenshots/PE23_prueba3_401.png)
+### Variables de entorno
+
+Copia `.env.example` a `.env` y configura `JWT_SECRET` con un valor secreto largo.
